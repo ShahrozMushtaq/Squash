@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { BANNERS_DATA, PROMOTED_PRODUCTS } from "@/lib/banners/banners-data";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +34,7 @@ export function BannersView() {
   const [banners, setBanners] = useState([...BANNERS_DATA]);
   const [editingBannerId, setEditingBannerId] = useState(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const bannerIdCounter = useRef(0);
 
   const handleToggleActive = (bannerId) => {
     setBanners(
@@ -94,12 +95,14 @@ export function BannersView() {
       setEditingBannerId(null);
     } else {
       // Create new banner
+      bannerIdCounter.current += 1;
+      const now = new Date().toISOString();
       const newBanner = {
-        id: `banner-${Date.now()}`,
+        id: `banner-${bannerIdCounter.current}-${now}`,
         ...bannerData,
         displayPriority: banners.length + 1,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdAt: now,
+        updatedAt: now,
       };
       setBanners([...banners, newBanner]);
       setShowCreateForm(false);

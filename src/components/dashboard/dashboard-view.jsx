@@ -225,7 +225,7 @@ export function DashboardView() {
           >
             <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Monthly Sales</h3>
             <div className="flex-1 min-h-[250px] sm:min-h-[350px]">
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height={isMobile ? 250 : 350}>
                 <BarChart data={MONTHLY_SALES_DATA}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                   <XAxis
@@ -281,7 +281,7 @@ export function DashboardView() {
             </h3>
             <div className="flex-1 flex flex-col min-h-[200px] sm:min-h-[250px]">
               <div className="flex-1 flex items-center justify-center">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height={isMobile ? 200 : 250}>
                   <PieChart>
                     <Pie
                       data={SALES_BY_CATEGORY_DATA}

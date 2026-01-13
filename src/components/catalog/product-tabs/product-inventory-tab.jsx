@@ -204,7 +204,7 @@ export function ProductInventoryTab({ productId, variantId = null }) {
                 className="h-9"
               />
               <p className="text-xs text-gray-500">
-                Mark as "Low Stock" when at or below this level
+                Mark as &quot;Low Stock&quot; when at or below this level
               </p>
             </div>
           </div>

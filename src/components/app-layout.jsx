@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/admin-sidebar";
@@ -29,17 +29,16 @@ function ContentArea() {
   const router = useRouter();
   const pathname = usePathname();
   
-  // Initialize activeTab from pathname immediately to avoid flicker
-  // Use function initializer to compute initial state from pathname
-  const [activeTab, setActiveTab] = useState(() => {
-    return pathToTab[pathname] || "dashboard";
-  });
+  // Optimistic tab state for user-initiated changes (before navigation completes)
+  const [optimisticTab, setOptimisticTab] = useState(null);
+  
+  // Derive active tab from pathname (no setState in effect needed)
+  const activeTab = useMemo(() => {
+    return optimisticTab || pathToTab[pathname] || "dashboard";
+  }, [pathname, optimisticTab]);
 
-  // Sync tab with URL when pathname changes
+  // Handle redirects
   useEffect(() => {
-    const tab = pathToTab[pathname] || "dashboard";
-    setActiveTab(tab);
-    
     // Redirect root path to /dashboard
     if (pathname === "/") {
       router.replace("/dashboard");
@@ -48,8 +47,12 @@ function ContentArea() {
 
   // Handle tab change - update URL
   const handleTabChange = (value) => {
-    // Update tab state immediately to prevent flicker
-    setActiveTab(value);
+    // Clear previous optimistic tab if pathname already matches
+    if (pathToTab[pathname] === optimisticTab) {
+      setOptimisticTab(null);
+    }
+    // Set optimistic tab for immediate UI update
+    setOptimisticTab(value);
     
     const paths = {
       dashboard: "/dashboard",

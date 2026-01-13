@@ -106,7 +106,7 @@ export function ProductPromotionTab({ productId, variantId = null }) {
                     ))}
                   </div>
                   <p className="text-xs text-gray-500">
-                    Select a label to display (e.g., "New", "Staff Pick")
+                    Select a label to display (e.g., &quot;New&quot;, &quot;Staff Pick&quot;)
                   </p>
                 </div>
 
