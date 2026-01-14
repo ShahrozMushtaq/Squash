@@ -22,6 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Save, Image as ImageIcon } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
 import { cn } from "@/lib/utils";
 
 /**
@@ -41,12 +42,8 @@ export function BannerForm({ banner, onSave, onCancel, open, onOpenChange }) {
     isActive: banner?.isActive ?? false,
     isPrimary: banner?.isPrimary ?? false,
     associatedProducts: banner?.associatedProducts || [],
-    startDate: banner?.startDate
-      ? new Date(banner.startDate).toISOString().slice(0, 16)
-      : "",
-    endDate: banner?.endDate
-      ? new Date(banner.endDate).toISOString().slice(0, 16)
-      : "",
+    startDate: banner?.startDate || "",
+    endDate: banner?.endDate || "",
   });
 
   const handleSave = () => {
@@ -63,8 +60,8 @@ export function BannerForm({ banner, onSave, onCancel, open, onOpenChange }) {
 
     const bannerData = {
       ...formData,
-      startDate: formData.startDate ? new Date(formData.startDate).toISOString() : null,
-      endDate: formData.endDate ? new Date(formData.endDate).toISOString() : null,
+      startDate: formData.startDate ? (typeof formData.startDate === 'string' ? formData.startDate : new Date(formData.startDate).toISOString()) : null,
+      endDate: formData.endDate ? (typeof formData.endDate === 'string' ? formData.endDate : new Date(formData.endDate).toISOString()) : null,
       updatedAt: new Date().toISOString(),
     };
 
@@ -291,24 +288,22 @@ export function BannerForm({ banner, onSave, onCancel, open, onOpenChange }) {
                 <Label htmlFor="startDate" className="text-sm font-semibold">
                   Start Date (Optional)
                 </Label>
-                <Input
-                  id="startDate"
-                  type="datetime-local"
+                <DatePicker
                   value={formData.startDate}
-                  onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                  className="h-9"
+                  onChange={(value) => setFormData({ ...formData, startDate: value })}
+                  placeholder="Select start date"
+                  includeTime={true}
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="endDate" className="text-sm font-semibold">
                   End Date (Optional)
                 </Label>
-                <Input
-                  id="endDate"
-                  type="datetime-local"
+                <DatePicker
                   value={formData.endDate}
-                  onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                  className="h-9"
+                  onChange={(value) => setFormData({ ...formData, endDate: value })}
+                  placeholder="Select end date"
+                  includeTime={true}
                 />
               </div>
             </div>

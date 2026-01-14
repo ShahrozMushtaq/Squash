@@ -11,6 +11,7 @@ export function ProductList({
   selectedVariants,
   onVariantChange,
   onAddToCart,
+  onProductClick,
 }) {
   const getStockBadge = (product, variant = null) => {
     const stockState = variant ? variant.stockState : product.stockState;
@@ -81,8 +82,8 @@ export function ProductList({
 
   return (
     <div className="flex-1 overflow-y-auto p-2 sm:p-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-        {products.map((product) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+        {products.slice(0, 6).map((product) => {
           const selectedVariantId = selectedVariants[product.id] || null;
           const selectedVariant = product.hasVariants
             ? product.variants?.find((v) => v.id === selectedVariantId)
@@ -121,11 +122,12 @@ export function ProductList({
             <div
               key={product.id}
               className={cn(
-                "relative flex flex-col rounded-lg border transition-all bg-white overflow-hidden group",
+                "relative flex flex-col rounded-lg border transition-all bg-white overflow-hidden group cursor-pointer",
                 addable && !variantRequired
                   ? "border-gray-200 hover:border-gray-300 hover:shadow-xl"
                   : "border-gray-200"
               )}
+              onClick={() => onProductClick && onProductClick(product)}
             >
               {/* Product Image Placeholder */}
               <div className="relative w-full h-32 sm:h-40 lg:h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
@@ -146,19 +148,19 @@ export function ProductList({
 
               {/* Product Info */}
               <div className="flex-1 flex flex-col p-3 sm:p-4">
-                {/* Product Name - Prominent Heading */}
-                <div className="font-bold text-base sm:text-lg leading-tight line-clamp-2 mb-2 text-gray-900">
+                {/* Product Name - Semibold for better hierarchy */}
+                <div className="font-semibold text-base sm:text-lg leading-tight line-clamp-2 mb-2 text-gray-900">
                   {product.name}
                 </div>
 
-                {/* Price Display - Dark Gray */}
+                {/* Price Display - Bold to stand out */}
                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                   ${price.toFixed(2)}
                 </div>
 
                 {/* Variant Selector - Compact Design */}
                 {product.hasVariants && (
-                  <div className="mb-3">
+                  <div className="mb-3" onClick={(e) => e.stopPropagation()}>
                     <ProductVariantSelector
                       product={product}
                       selectedVariantId={selectedVariantId}
@@ -179,7 +181,8 @@ export function ProductList({
                       !addable || variantRequired ? "text-gray-500 border-gray-300" : ""
                     )}
                     disabled={!addable || variantRequired}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent triggering product click
                       if (addable && !variantRequired) {
                         if (product.hasVariants && !selectedVariant) {
                           console.error("Variant selection required but missing");

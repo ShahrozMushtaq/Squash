@@ -118,6 +118,17 @@ export function CategoryManagement() {
         </div>
       </div>
 
+      {/* Rules Info */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h4 className="text-sm font-semibold text-blue-900 mb-2">Rules</h4>
+        <p className="text-xs text-blue-800">
+          Every product belongs to exactly one category. Hiding a category hides all its products.
+        </p>
+        <p className="text-xs text-blue-800 mt-1">
+          Categories can be reordered. Categories with active products cannot be deleted.
+        </p>
+      </div>
+
       {/* Create New Category */}
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <div className="flex items-center gap-3">
@@ -267,17 +278,6 @@ export function CategoryManagement() {
               ))}
           </TableBody>
         </Table>
-      </div>
-
-      {/* Rules Info */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h4 className="text-sm font-semibold text-blue-900 mb-2">Rules</h4>
-        <ul className="text-xs text-blue-800 space-y-1 list-disc list-inside">
-          <li>Every product must belong to exactly one category</li>
-          <li>Hiding a category hides all products within it</li>
-          <li>Categories can be reordered to change display order</li>
-          <li>Categories cannot be deleted if they have active products</li>
-        </ul>
       </div>
     </div>
   );

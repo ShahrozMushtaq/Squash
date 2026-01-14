@@ -57,7 +57,7 @@ export function ProductActivityTab({ productId, variantId = null }) {
     };
 
     return (
-      <Badge className={cn("text-white text-xs", colors[action] || "bg-gray-500")}>
+      <Badge className={cn("text-white text-xs whitespace-nowrap", colors[action] || "bg-gray-500")}>
         {action.replace("_", " ").toUpperCase()}
       </Badge>
     );
@@ -98,53 +98,51 @@ export function ProductActivityTab({ productId, variantId = null }) {
             <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[120px]">Date & Time</TableHead>
-                <TableHead className="w-[150px]">Action</TableHead>
-                <TableHead>Changes</TableHead>
-                <TableHead className="w-[120px]">Performed By</TableHead>
-                <TableHead className="w-[200px]">Reason/Metadata</TableHead>
+                <TableHead className="w-[180px] whitespace-nowrap px-4 py-3">Date & Time</TableHead>
+                <TableHead className="w-[160px] whitespace-nowrap px-4 py-3">Action</TableHead>
+                <TableHead className="min-w-[250px] px-4 py-3">Changes</TableHead>
+                <TableHead className="w-[120px] whitespace-nowrap px-4 py-3">Performed By</TableHead>
+                <TableHead className="w-[150px] whitespace-nowrap px-4 py-3">Reason/Metadata</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {activityLog.map((entry) => (
                 <TableRow key={entry.id}>
-                  <TableCell className="text-sm text-gray-600">
+                  <TableCell className="text-sm text-gray-600 whitespace-nowrap px-4 py-3">
                     {formatTimestamp(entry.timestamp)}
                   </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
+                  <TableCell className="px-4 py-3">
+                    <div className="flex items-center gap-2 whitespace-nowrap">
                       {getActionIcon(entry.action)}
                       {getActionBadge(entry.action)}
                     </div>
                   </TableCell>
-                  <TableCell>
-                    <div className="text-sm text-gray-900">
-                      {entry.changes && Object.keys(entry.changes).length > 0 ? (
-                        <div className="space-y-1">
-                          {Object.entries(entry.changes).map(([field, change]) => (
-                            <div key={field} className="text-xs">
-                              <span className="font-medium">{field}:</span>{" "}
-                              {change.old !== null && change.old !== undefined ? (
-                                <>
-                                  <span className="text-red-600 line-through">
-                                    {change.old}
-                                  </span>{" "}
-                                  <span className="text-gray-400">→</span>{" "}
-                                </>
-                              ) : null}
-                              <span className="text-green-600">{change.new}</span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <span className="text-gray-500">No changes recorded</span>
-                      )}
-                    </div>
+                  <TableCell className="text-sm text-gray-900 px-4 py-3">
+                    {entry.changes && Object.keys(entry.changes).length > 0 ? (
+                      <div className="space-y-1">
+                        {Object.entries(entry.changes).map(([field, change]) => (
+                          <div key={field} className="text-xs whitespace-nowrap">
+                            <span className="font-medium">{field}:</span>{" "}
+                            {change.old !== null && change.old !== undefined ? (
+                              <>
+                                <span className="text-red-600 line-through">
+                                  {change.old}
+                                </span>{" "}
+                                <span className="text-gray-400">→</span>{" "}
+                              </>
+                            ) : null}
+                            <span className="text-green-600">{change.new}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-gray-500 text-xs">No changes recorded</span>
+                    )}
                   </TableCell>
-                  <TableCell className="text-sm text-gray-600">
+                  <TableCell className="text-sm text-gray-600 whitespace-nowrap px-4 py-3">
                     {entry.performedBy}
                   </TableCell>
-                  <TableCell className="text-xs text-gray-500">
+                  <TableCell className="text-xs text-gray-500 whitespace-nowrap px-4 py-3">
                     {entry.metadata?.reason || entry.metadata?.transactionId || "—"}
                   </TableCell>
                 </TableRow>

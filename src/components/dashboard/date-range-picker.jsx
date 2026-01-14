@@ -23,13 +23,24 @@ import {
  * Date Range Picker Component
  * Allows selecting predefined ranges or custom date ranges
  */
-export function DateRangePicker({ className }) {
-  const [date, setDate] = React.useState({
+export function DateRangePicker({ 
+  className, 
+  value, 
+  onChange,
+  defaultDate = {
     from: new Date(2026, 0, 1),
     to: new Date(2026, 0, 13),
-  });
+  }
+}) {
+  const [date, setDate] = React.useState(value || defaultDate);
   const [selectedRange, setSelectedRange] = React.useState("this-month");
   const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    if (value) {
+      setDate(value);
+    }
+  }, [value]);
 
   React.useEffect(() => {
     const checkMobile = () => {
@@ -76,10 +87,14 @@ export function DateRangePicker({ className }) {
   const handlePresetChange = (value) => {
     setSelectedRange(value);
     const preset = presetRanges[value];
-    setDate({
+    const newDate = {
       from: preset.from,
       to: preset.to,
-    });
+    };
+    setDate(newDate);
+    if (onChange) {
+      onChange(newDate);
+    }
   };
 
   return (
@@ -153,6 +168,9 @@ export function DateRangePicker({ className }) {
                   if (newDate) {
                     setDate(newDate);
                     setSelectedRange("custom");
+                    if (onChange) {
+                      onChange(newDate);
+                    }
                   }
                 }}
                 numberOfMonths={isMobile ? 1 : 2}

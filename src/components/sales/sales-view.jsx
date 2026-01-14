@@ -24,7 +24,7 @@ export function SalesView() {
 
       <Tabs defaultValue="transactions" className="flex-1 flex flex-col overflow-hidden">
         <div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-4 border-b border-gray-200">
-          <TabsList className="inline-flex h-9 sm:h-10 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground overflow-x-auto scrollbar-hide w-full">
+          <TabsList className="inline-flex h-9 sm:h-10 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground w-auto">
             <TabsTrigger value="transactions" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm flex-shrink-0">
               <Receipt className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Transactions

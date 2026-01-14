@@ -16,7 +16,7 @@ import { ProductActivityTab } from "./product-tabs/product-activity-tab";
 export function ProductDetailTabs({ productId, variantId = null }) {
   return (
     <Tabs defaultValue="details" className="w-full">
-      <TabsList className="inline-flex h-9 sm:h-10 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground overflow-x-auto scrollbar-hide w-full">
+      <TabsList className="inline-flex h-9 sm:h-10 items-center justify-start rounded-md bg-muted p-1 text-muted-foreground w-auto">
         <TabsTrigger value="details" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm flex-shrink-0">
           <Package className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           <span className="hidden sm:inline">Details</span>

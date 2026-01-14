@@ -166,6 +166,17 @@ export function BannersView() {
         </div>
       </div>
 
+      {/* Rules Info */}
+      <div className="p-3 sm:p-4 border-b border-gray-200 bg-blue-50">
+        <h4 className="text-xs sm:text-sm font-semibold text-blue-900 mb-1.5 sm:mb-2">Banner Rules</h4>
+        <p className="text-[10px] sm:text-xs text-blue-800">
+          Only one primary banner active at a time. Manual ordering determines display priority.
+        </p>
+        <p className="text-[10px] sm:text-xs text-blue-800 mt-1">
+          Simple content only. Product-based banners reference promoted products from Catalog.
+        </p>
+      </div>
+
       {/* Banners Table */}
       <div className="flex-1 overflow-y-auto overflow-x-auto">
         {banners.length === 0 ? (
@@ -486,17 +497,6 @@ export function BannersView() {
             </div>
           </>
         )}
-      </div>
-
-      {/* Rules Info */}
-      <div className="p-3 sm:p-4 border-t border-gray-200 bg-blue-50">
-        <h4 className="text-xs sm:text-sm font-semibold text-blue-900 mb-1.5 sm:mb-2">Banner Rules</h4>
-        <ul className="text-[10px] sm:text-xs text-blue-800 space-y-0.5 sm:space-y-1 list-disc list-inside">
-          <li>Only one primary banner active at a time</li>
-          <li>Manual ordering determines display priority</li>
-          <li>Simple content only - no rich text or animations</li>
-          <li>Product-based banners reference promoted products from Catalog</li>
-        </ul>
       </div>
 
       {/* Banner Form Dialog */}

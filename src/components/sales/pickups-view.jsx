@@ -149,6 +149,13 @@ export function PickupsView() {
         </div>
       </div>
 
+      {/* Info */}
+      <div className="p-3 sm:p-4 border-b border-gray-200 bg-blue-50">
+        <p className="text-[10px] sm:text-xs text-blue-800">
+          Pickups apply only to externally-originated purchases. Checkout sales never create pickup states.
+        </p>
+      </div>
+
       {/* Pickups Table */}
       <div className="flex-1 overflow-y-auto overflow-x-auto">
         {filteredPickups.length === 0 ? (
@@ -542,13 +549,6 @@ export function PickupsView() {
             </div>
           </>
         )}
-      </div>
-
-      {/* Info Footer */}
-      <div className="p-3 sm:p-4 border-t border-gray-200 bg-gray-50">
-        <p className="text-[10px] sm:text-xs text-gray-500">
-          Pickups apply only to externally-originated purchases. Checkout sales never create pickup states.
-        </p>
       </div>
     </div>
   );

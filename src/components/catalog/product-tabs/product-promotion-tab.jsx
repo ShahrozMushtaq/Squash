@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Save, Tag } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
 
 /**
  * Product Promotion Tab
@@ -138,21 +139,16 @@ export function ProductPromotionTab({ productId, variantId = null }) {
                   <Label htmlFor="startDate" className="text-sm font-semibold">
                     Start Date (Optional)
                   </Label>
-                  <Input
-                    id="startDate"
-                    type="datetime-local"
-                    value={
-                      promotionData.startDate
-                        ? new Date(promotionData.startDate).toISOString().slice(0, 16)
-                        : ""
-                    }
-                    onChange={(e) =>
+                  <DatePicker
+                    value={promotionData.startDate}
+                    onChange={(value) =>
                       setPromotionData({
                         ...promotionData,
-                        startDate: e.target.value ? new Date(e.target.value).toISOString() : null,
+                        startDate: value ? new Date(value).toISOString() : null,
                       })
                     }
-                    className="h-9"
+                    placeholder="Select start date"
+                    includeTime={true}
                   />
                 </div>
 
@@ -160,21 +156,16 @@ export function ProductPromotionTab({ productId, variantId = null }) {
                   <Label htmlFor="endDate" className="text-sm font-semibold">
                     End Date (Optional)
                   </Label>
-                  <Input
-                    id="endDate"
-                    type="datetime-local"
-                    value={
-                      promotionData.endDate
-                        ? new Date(promotionData.endDate).toISOString().slice(0, 16)
-                        : ""
-                    }
-                    onChange={(e) =>
+                  <DatePicker
+                    value={promotionData.endDate}
+                    onChange={(value) =>
                       setPromotionData({
                         ...promotionData,
-                        endDate: e.target.value ? new Date(e.target.value).toISOString() : null,
+                        endDate: value ? new Date(value).toISOString() : null,
                       })
                     }
-                    className="h-9"
+                    placeholder="Select end date"
+                    includeTime={true}
                   />
                 </div>
               </div>

@@ -130,6 +130,13 @@ export function TransactionsView() {
         </div>
       </div>
 
+      {/* Info */}
+      <div className="p-3 sm:p-4 border-b border-gray-200 bg-blue-50">
+        <p className="text-[10px] sm:text-xs text-blue-800">
+          Transactions are append-only and auditable. All transactions are linked to inventory changes.
+        </p>
+      </div>
+
       {/* Transactions Table */}
       <div className="flex-1 overflow-y-auto overflow-x-auto">
         {filteredTransactions.length === 0 ? (
@@ -608,13 +615,6 @@ export function TransactionsView() {
             </div>
           </>
         )}
-      </div>
-
-      {/* Info Footer */}
-      <div className="p-3 sm:p-4 border-t border-gray-200 bg-gray-50">
-        <p className="text-[10px] sm:text-xs text-gray-500">
-          Transactions are append-only and auditable. All transactions are linked to inventory changes.
-        </p>
       </div>
     </div>
   );

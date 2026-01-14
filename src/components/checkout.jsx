@@ -8,6 +8,7 @@ import { CustomerSelector } from "./checkout/customer-selector";
 import { PaymentPanel } from "./checkout/payment-panel";
 import { SuccessConfirmation } from "./checkout/success-confirmation";
 import { ErrorDisplay } from "./checkout/error-display";
+import { ProductDetailsDialog } from "./checkout/product-details-dialog";
 import { STUB_PRODUCTS, CATEGORIES } from "./checkout/stub-data";
 import { STUB_CUSTOMERS } from "./checkout/stub-customers";
 import { CART_CONFIG } from "./checkout/cart-config";
@@ -38,6 +39,8 @@ export function Checkout() {
   const [completedTransaction, setCompletedTransaction] = useState(null);
   // Error state
   const [error, setError] = useState(null);
+  // Product details dialog state
+  const [selectedProductForDetails, setSelectedProductForDetails] = useState(null);
 
   // Filter products based on search and category
   const filteredProducts = useMemo(() => {
@@ -294,6 +297,7 @@ export function Checkout() {
           selectedVariants={selectedVariants}
           onVariantChange={handleVariantChange}
           onAddToCart={handleAddToCart}
+          onProductClick={setSelectedProductForDetails}
         />
       </div>
 
@@ -346,6 +350,17 @@ export function Checkout() {
 
       {/* Error Display Modal */}
       <ErrorDisplay error={error} onDismiss={handleErrorDismiss} />
+
+      {/* Product Details Dialog */}
+      <ProductDetailsDialog
+        product={selectedProductForDetails}
+        open={!!selectedProductForDetails}
+        onOpenChange={(open) => {
+          if (!open) {
+            setSelectedProductForDetails(null);
+          }
+        }}
+      />
     </div>
     </div>
   );

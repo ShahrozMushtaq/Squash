@@ -28,6 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Download, Calendar, TrendingUp, Package, Users } from "lucide-react";
+import { DateRangePicker } from "@/components/dashboard/date-range-picker";
 import { cn } from "@/lib/utils";
 
 /**
@@ -35,8 +36,10 @@ import { cn } from "@/lib/utils";
  * Read-only reports with date range filtering and CSV export
  */
 export function ReportsView() {
-  const [startDate, setStartDate] = useState("2024-01-16");
-  const [endDate, setEndDate] = useState("2024-01-20");
+  const [dateRange, setDateRange] = useState({
+    from: new Date("2024-01-16"),
+    to: new Date("2024-01-20"),
+  });
   const [selectedReport, setSelectedReport] = useState("sales-by-date");
 
   const formatCurrency = (amount) => {
@@ -57,9 +60,10 @@ export function ReportsView() {
   };
 
   const filteredSalesByDate = SALES_BY_DATE.filter((item) => {
+    if (!dateRange?.from || !dateRange?.to) return true;
     const itemDate = new Date(item.date);
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = new Date(dateRange.from);
+    const end = new Date(dateRange.to);
     return itemDate >= start && itemDate <= end;
   });
 
@@ -72,21 +76,11 @@ export function ReportsView() {
             <Calendar className="h-4 w-4 text-gray-500" />
             <Label className="text-xs sm:text-sm font-semibold">Date Range</Label>
           </div>
-          <div className="flex items-center gap-2 flex-1 sm:flex-initial">
-            <Input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="h-9 flex-1 sm:w-[150px] text-sm"
-            />
-            <span className="text-xs sm:text-sm text-gray-500">to</span>
-            <Input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="h-9 flex-1 sm:w-[150px] text-sm"
-            />
-          </div>
+          <DateRangePicker 
+            value={dateRange}
+            onChange={setDateRange}
+            className="flex-1 sm:flex-initial"
+          />
           <Button onClick={handleExportCSV} variant="outline" className="gap-2 w-full sm:w-auto h-9 text-xs sm:text-sm">
             <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             <span className="hidden sm:inline">Export CSV</span>
